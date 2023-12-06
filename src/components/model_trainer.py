@@ -66,7 +66,7 @@ class ModelTrainer:
 
             best_model_name = list(model_report.keys()) [
                 list(model_report.values()).index(best_model_score)]
-            model = models[best_model_name]
+            best_model = models[best_model_name]
 
             if best_model_score<0.6:
                 raise CustomException("No best model found")
@@ -74,10 +74,10 @@ class ModelTrainer:
 
             save_object(
                 file_path=self.model_trainer_config.trained_model_file_path,
-                obj=model
+                obj=best_model
             )
 
-            predicted = model.predict(X_test)
+            predicted = best_model.predict(X_test)
             r2 = r2_score(y_test, predicted)
             return r2
         
